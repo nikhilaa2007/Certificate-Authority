@@ -4,23 +4,20 @@ module nikhila_addr::CertificateAuthority {
     use std::string::{Self, String};
     use std::vector;
 
-    /// Struct representing a digital certificate
     struct Certificate has store, key {
-        certificate_id: u64,        // Unique identifier for the certificate
-        recipient_name: String,     // Name of the certificate recipient
-        course_name: String,        // Name of the course/program
-        issue_date: u64,           // Timestamp when certificate was issued
-        issuer: address,           // Address of the certificate issuer
-        is_valid: bool,            // Certificate validity status
+        certificate_id: u64,       
+        recipient_name: String,     
+        course_name: String,       
+        issue_date: u64,           
+        issuer: address,           
+        is_valid: bool,           
     }
-
-    /// Resource to track certificate issuance for an authority
+    
     struct CertificateRegistry has store, key {
-        next_certificate_id: u64,  // Counter for generating unique certificate IDs
-        total_issued: u64,         // Total number of certificates issued
+        next_certificate_id: u64,  
+        total_issued: u64,        
     }
 
-    /// Function to initialize the certificate authority
     public fun initialize_authority(authority: &signer) {
         let registry = CertificateRegistry {
             next_certificate_id: 1,
@@ -29,7 +26,6 @@ module nikhila_addr::CertificateAuthority {
         move_to(authority, registry);
     }
 
-    /// Function to issue a new certificate
     public fun issue_certificate(
         authority: &signer,
         recipient: address,
@@ -48,17 +44,14 @@ module nikhila_addr::CertificateAuthority {
             is_valid: true,
         };
         
-        // Update registry counters
         registry.next_certificate_id = registry.next_certificate_id + 1;
         registry.total_issued = registry.total_issued + 1;
-        
-        // Move certificate to recipient's account
+    
         move_to(&create_signer_for_recipient(recipient), certificate);
     }
     
-    // Helper function placeholder - in real implementation, you'd need proper signer creation
     fun create_signer_for_recipient(recipient: address): signer {
-        // This is a placeholder - actual implementation would require proper authorization
-        abort 1 // This would need proper implementation based on Aptos framework capabilities
+        abort 1
     }
+
 }
