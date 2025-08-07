@@ -1,0 +1,16 @@
+[package]
+name = "CERTIFICATEAUTHORITY"
+version = "1.0.0"
+authors = []
+
+[addresses]
+nikhila_addr = "22dc16e76a54a699a8ef18f90066fdc3fbcc9002cd000daee5ddb74fef57c6b1"
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dev-dependencies]
